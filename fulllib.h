@@ -57,9 +57,7 @@ double call(double* x){
 double dqag2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b,
        double* epsabs, double* epsrel, int* key, double* result, double* abserr, int* neval, int* ier,
        int* limit, int* lenw, int* last, int iwork[*limit], double work[*lenw]){
-
   init(f,nargs,args);
-
   dqag_(call,a,b,epsabs,epsrel,key,result,abserr,neval,ier,limit,lenw,last,iwork,work);
   return *result;
 }
