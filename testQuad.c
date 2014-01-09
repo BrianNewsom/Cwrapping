@@ -1,24 +1,30 @@
+/* This c file is meant as proof of concept to show that the fulllib.h
+  header can serve the expected purpose and will allow the usage of 
+  multivariate functions declared in c to speed up scipy */
 #include "fulllib.h"
 
+static const double  PI=3.14159265359;
+
 int assert_quad(double value, double actualValue, double errTol){
-  /*Input:
+  /* Test if quad returns within expected tolerance.
+  Input:
     value - Return value through quadpack
     actualValue - Known value of integral
     errTol - Maximum error allowed
     
-    Output:
-    -1 - Error is larger than tolerance
+  Output:
+    1 - Error is larger than tolerance
     0 - Error within tolerance
   */
   if (fabs(value - actualValue) > errTol){
     printf("Integrated value: %f\n", value);
     printf("Numerical value: %f\n", actualValue);
     printf("Error: %f is greater than tolerance\n",fabs(value-actualValue));
-    return -1; //Error larger than tolerance
+    return 1;
   }
   else{
     printf("Integration within tolerance\n");
-    return 0; //Okay return value;
+    return 0; 
   }
 }
 
@@ -56,11 +62,14 @@ double tiFunc(int nargs, double args[nargs]){
 
 }
 
+double tiFunc2(int* x){
+  return -(exp(-*x)*log(*x));
+}
 
 int test_indefinite(){
   int nargs = 0;
   double args[nargs];
-  double bound = 0;
+  double bound = 0.0;
   int inf = 1;
   double epsabs = 1.49E-8;
   double epsrel = 1.49E-8;
@@ -73,7 +82,11 @@ int test_indefinite(){
   double elist[limit];
   int iord[limit];
   int last;
-  double value = dqagie2(tiFunc, nargs, args, &bound, &inf, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
+  double value = dqagie2(tiFunc, nargs, args, &bound, &inf, &epsabs, &epsrel, &limit, &result, 
+			 &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last); //ERROR
+  double value2 = dqagie_(tiFunc2, &bound, &inf, &epsabs, &epsrel, &limit, &result, &abserr, &neval, 
+			  &ier, alist, blist, rlist, elist, iord, &last); // If i skip the wrapper it works.
+  value2 = result; //Somehow this one is correct..
   return assert_quad(value, 0.577215664901532860606512, 1.49e-8);
 
 }
@@ -292,7 +305,7 @@ int main(){
   test_cosine_weighted_infinite();
   printf("Test Algebraic Log Weight\n");
   test_algebraic_log_weight();
-  printf("Test Cauchypv Weighty\n");
+  printf("Test Cauchypv Weight\n");
   test_cauchypv_weight();
   return 0;
 
