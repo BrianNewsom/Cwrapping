@@ -64,8 +64,8 @@ double dqag2(double (*f)(int, double *), int nargs, double args[nargs], double* 
 
 double dqage2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, double* epsabs,
 	      double* epsrel, int* key, int* limit, double* result, double* abserr, int* neval, int* ier, 
-	      double alist[*limit], double blist[*limit], double rlist[*limit], double elist[*limit], int iord[*limit], 
-	      int* last){
+	      double alist[*limit], double blist[*limit], double rlist[*limit], double elist[*limit], 
+        int iord[*limit], int* last){
   init(f,nargs,args);
   dqage_(call, a,b,epsabs,epsrel,key,limit,result,abserr,neval,ier,alist,blist,rlist,elist,iord,last);
   return *result;
@@ -84,18 +84,20 @@ double HARDCODEDFUNCTION(int* x){
 }
 
 double dqagie2(double (*f)(int, double *), int nargs, double args[nargs], double* bound, int* inf, 
-	       double* epsabs, double* epsrel, int* limit, double* result, double* abserr, int* neval, 
-	       int* ier, double alist[*limit], double blist[*limit], double rlist[*limit], double elist[*limit], 
-	       int iord[*limit], int* last){
+	      double* epsabs, double* epsrel, int* limit, double* result, double* abserr, int* neval, 
+	      int* ier, double alist[*limit], double blist[*limit], double rlist[*limit], double elist[*limit], 
+	      int iord[*limit], int* last){
   init(f,nargs,args);
   //double param = .1;
   //printf("%f Test \n",call(&param));
   //This returns okay...
   //If I skip over my function wrapper and call
-  //dqagie_(HARDCODEDFUNCTION, bound, inf, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, rlist, elist, iord, last);
+  //dqagie_(HARDCODEDFUNCTION, bound, inf, epsabs, epsrel, 
+  //  limit, result, abserr, neval, ier, alist, blist, rlist, elist, iord, last);
   //directly, it works.
   //But if I use my wrapper (which shouldn't do anything...)
-  dqagie_(call, bound, inf, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, rlist, elist, iord, last);
+  dqagie_(call, bound, inf, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, 
+          rlist, elist, iord, last);
   return *result;
 
 }
@@ -109,9 +111,9 @@ double dqags2(double (*f)(int, double *), int nargs, double args[nargs], double*
 }
 
 double dqagse2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, 
-	       double* epsabs, double* epsrel, int* limit, double* result, double* abserr, int* neval, 
-	       int* ier, double alist[*limit], double blist[*limit], double rlist[*limit], 
-	       double elist[*limit], int iord[*limit], int* last){
+	      double* epsabs, double* epsrel, int* limit, double* result, double* abserr, int* neval, 
+	      int* ier, double alist[*limit], double blist[*limit], double rlist[*limit], 
+	      double elist[*limit], int iord[*limit], int* last){
   init(f,nargs,args);
   dqagse_(call, a, b, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, rlist, 
 	  elist, iord, last);
@@ -137,14 +139,14 @@ double dqawo2(double (*f)(int, double *), int nargs, double args[nargs], double*
 
 
 double dqawoe2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, 
-	       double* omega, int* integr, double* epsabs, double* epsrel, int* limit, int* icall, 
-	       int* maxp1, double* result, double* abserr, int* neval, int* ier, int* last, double alist[*limit], 
-	       double blist[*limit], double rlist[*limit], double elist[*limit], int iord[*limit], 
-	       int nnlog[*limit], int* momcom, double chebmo[*maxp1][25] ){  
+	      double* omega, int* integr, double* epsabs, double* epsrel, int* limit, int* icall, 
+	      int* maxp1, double* result, double* abserr, int* neval, int* ier, int* last, 
+        double alist[*limit], double blist[*limit], double rlist[*limit], double elist[*limit], 
+        int iord[*limit], int nnlog[*limit], int* momcom, double chebmo[*maxp1][25] ){  
   
   init(f,nargs,args);
-  dqawoe_(call, a, b, omega, integr, epsabs, epsrel, limit, icall, maxp1, result, abserr, neval, ier, 
-	  last, alist, blist, rlist, elist, iord, nnlog, momcom, chebmo);
+  dqawoe_(call, a, b, omega, integr, epsabs, epsrel, limit, icall, maxp1, result, abserr, 
+        neval, ier, last, alist, blist, rlist, elist, iord, nnlog, momcom, chebmo);
   return *result;
 }
 
@@ -153,35 +155,38 @@ double dqagp2(double (*f)(int, double *), int nargs, double args[nargs], double*
 	      double* abserr, int* neval, int* ier, int* leniw, int* lenw, int* last, 
 	      int iwork[*leniw], double work[*lenw]){
   init(f,nargs,args);
-  dqagp_(call,a,b,npts2,points,epsabs,epsrel,result,abserr,neval,ier,leniw,lenw,last,iwork,work);
+  dqagp_(call,a,b,npts2,points,epsabs,epsrel,result,abserr,neval,ier,leniw,lenw,
+        last,iwork,work);
   return *result;
 }
 
 double dqagpe2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, 
-	       int* npts2, double points[*npts2], double* epsabs, double* epsrel, int* limit,
-	       double* result, double* abserr, int* neval, int* ier, double alist[*limit], 
-	       double blist[*limit], double rlist[*limit], double elist[*limit], double pts[*npts2], 
-	       int iord[*limit], int level[*limit], int ndin[*limit], int* last){
+	      int* npts2, double points[*npts2], double* epsabs, double* epsrel, int* limit,
+	      double* result, double* abserr, int* neval, int* ier, double alist[*limit], 
+	      double blist[*limit], double rlist[*limit], double elist[*limit], double pts[*npts2], 
+	      int iord[*limit], int level[*limit], int ndin[*limit], int* last){
   init(f,nargs,args);
   dqagpe_(call, a, b, npts2, points, epsabs, epsrel, limit, result, abserr, neval, ier, alist, 
-	  blist, rlist, elist, pts, iord, level, ndin, last);
+	      blist, rlist, elist, pts, iord, level, ndin, last);
   return *result;
 }
 
 double dqawc2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b,
 	      double* c, double* epsabs, double* epsrel, double* result, double* abserr,
-	      int* neval, int* ier, int* limit, int* lenw, int* last, int iwork[*limit], double work[*lenw]){
+	      int* neval, int* ier, int* limit, int* lenw, int* last, int iwork[*limit], 
+        double work[*lenw]){
   init(f,nargs,args);
   dqawc_(call,a,b,c,epsabs,epsrel,result,abserr,neval,ier,limit,lenw,last,iwork,work);
   return *result; 
 }
 
-double dqawce2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, double* c, 
-	       double* epsabs, double* epsrel, int* limit, double* result, double* abserr, int* neval, 
-	       int* ier, double alist[*limit], double blist[*limit],double rlist[*limit], double elist[*limit], 
-	       int iord[*limit], int* last){
+double dqawce2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, 
+        double* c, double* epsabs, double* epsrel, int* limit, double* result, double* abserr, 
+        int* neval, int* ier, double alist[*limit], double blist[*limit],double rlist[*limit], 
+        double elist[*limit], int iord[*limit], int* last){
   init(f,nargs,args);
-  dqawce_(call, a, b, c, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, rlist, elist, iord, last);
+  dqawce_(call, a, b, c, epsabs, epsrel, limit, result, abserr, neval, ier, alist, blist, rlist, 
+        elist, iord, last);
   return *result;
 }
 
@@ -191,18 +196,18 @@ double dqawf2(double (*f)(int, double *), int nargs, double args[nargs], double*
 	      double work[*lenw]){
   init(f,nargs,args);
   dqawf_(call,a,omega,integr,epsabs,result,abserr,neval,ier,limlst,lst,leniw,maxp1,
-	 lenw,iwork,work);
+	      lenw,iwork,work);
   return *result;
 }
 
 double dqawfe2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* omega, 
-	       int* integr, double* epsabs, int* limlst, int* limit, int* maxp1, double* result, 
-	       double* abserr, int* neval, int* ier, double rslst[*limlst], double erlst[*limlst], 
-	       int ierlst[*limlst], int* lst, double alist[*limit], double blist[*limit], double rlist[*limit], 
-	       double elist[*limit], int iord[*limit], int nnlog[*limit], double chebmo[*maxp1][25] ){
+          int* integr, double* epsabs, int* limlst, int* limit, int* maxp1, double* result, 
+	        double* abserr, int* neval, int* ier, double rslst[*limlst], double erlst[*limlst], 
+	        int ierlst[*limlst], int* lst, double alist[*limit], double blist[*limit], double rlist[*limit], 
+	        double elist[*limit], int iord[*limit], int nnlog[*limit], double chebmo[*maxp1][25] ){
   init(f,nargs,args);
-  dqawfe_(call, a, omega, integr, epsabs, limlst, limit, maxp1, result, abserr, neval, ier, rslst, erlst, ierlst, 
-	  lst, alist, blist, rlist, elist, iord, nnlog, chebmo);
+  dqawfe_(call, a, omega, integr, epsabs, limlst, limit, maxp1, result, abserr, neval, ier, rslst, 
+          erlst, ierlst, lst, alist, blist, rlist, elist, iord, nnlog, chebmo);
   return *result;
 }
 
@@ -212,16 +217,16 @@ double dqaws2(double (*f)(int, double *), int nargs, double args[nargs], double*
 	      double work[*lenw]){
   init(f,nargs,args);
   dqaws_(call, a, b, alfa, beta, integr, epsabs, epsrel,
-	 result, abserr, neval, ier, limit, lenw, last, iwork, work);
+	      result, abserr, neval, ier, limit, lenw, last, iwork, work);
   return *result;
 }
 
 double dqawse2(double (*f)(int, double *), int nargs, double args[nargs], double* a, double* b, 
-	       double* alfa, double* beta, int* integr, double* epsabs, double* epsrel, int* limit, 
-	       double* result, double* abserr, int* neval, int* ier, double alist[*limit], double blist[*limit], 
-	       double rlist[*limit], double elist[*limit], int iord[*limit], int* last){
+ 	      double* alfa, double* beta, int* integr, double* epsabs, double* epsrel, int* limit, 
+	      double* result, double* abserr, int* neval, int* ier, double alist[*limit], double blist[*limit], 
+	      double rlist[*limit], double elist[*limit], int iord[*limit], int* last){
   init(f,nargs,args);
-  dqawse_(call, a, b, alfa, beta, integr, epsabs, epsrel, limit, result, abserr, neval, ier, alist, 
-	  blist, rlist,elist, iord, last);
+  dqawse_(call, a, b, alfa, beta, integr, epsabs, epsrel, limit, result, abserr, neval, 
+        ier, alist, blist, rlist,elist, iord, last);
   return *result;
 }
