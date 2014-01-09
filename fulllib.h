@@ -42,7 +42,6 @@ double call(double* x){
   Output: Function evaluated at x with initialized parameters
   We want to create a new array with [x0, concatenated with [x1, . . . , xn]]
   */
-  //double (*f)(int, double *) = globalf;
   double evalArray[globalnargs+1];
   int i = 1;
   evalArray[0] = *x;
