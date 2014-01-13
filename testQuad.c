@@ -51,7 +51,8 @@ int test_typical(){
   double elist[limit];
   int iord[limit];
   int last;
-  double value = dqagse2(ttFunc, nargs, args, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
+  double value = dqagse2(ttFunc, nargs, args, &a, &b, &epsabs, &epsrel, &limit, &result, 
+        &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
 
   return assert_quad(value, 0.30614353532540296487, 1.49e-8);
 
@@ -125,7 +126,9 @@ int test_singular(){
   int ndin[limit];
   int last;
   
-  double value = dqagpe2(tsFunc, nargs, args, &a, &b, &npts2, points, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist,elist, pts, iord, level, ndin, &last);
+  double value = dqagpe2(tsFunc, nargs, args, &a, &b, &npts2, points, &epsabs, &epsrel,
+        &limit, &result, &abserr, &neval, &ier, alist, blist, rlist,elist, pts, iord,
+        level, ndin, &last);
   return assert_quad(value, 1 - cos(2.5) + exp(-2.5) - exp(-5.0), 1.49e-8);
 }
 
@@ -160,8 +163,11 @@ int test_sine_weighted_finite(){
   double chebmo[maxp1][25]; //This 2D array could have problems w/ fortran and c??
   int last;
 
-  double value = dqawoe2(tswfFunc, nargs, args, &a, &b, &omega, &integr, &epsabs, &epsrel, &limit, &icall, &maxp1, &result, &abserr, &neval, &ier, &last, alist, blist, rlist, elist, iord, nnlog, &momcom, chebmo);
-  return assert_quad(value, (20*sin(omega)-omega*cos(omega)+omega*exp(-20))/(pow(20,2) + pow(omega,2)), 1.49e-8);
+  double value = dqawoe2(tswfFunc, nargs, args, &a, &b, &omega, &integr, &epsabs, &epsrel, 
+        &limit, &icall, &maxp1, &result, &abserr, &neval, &ier, &last, alist, blist, rlist, 
+        elist, iord, nnlog, &momcom, chebmo);
+  return assert_quad(value, (20*sin(omega)-omega*cos(omega)+omega*exp(-20))/(pow(20,2) 
+        + pow(omega,2)), 1.49e-8);
 }
 
 double tswiFunc(int nargs, double args[nargs]){
@@ -196,7 +202,9 @@ int test_sine_weighted_infinite(){
   int nnlog[limit];
   double chebmo[maxp1][25]; //This 2D array could have problems w/ fortran and c??                                                          
 
-  double value = dqawfe2(tswiFunc, nargs, args, &a, &omega, &integr, &epsabs, &limlst, &limit, &maxp1, &result, &abserr, &neval, &ier, rslst, erlst, ierlst, &lst, alist, blist, rlist, elist, iord, nnlog, chebmo);
+  double value = dqawfe2(tswiFunc, nargs, args, &a, &omega, &integr, &epsabs, &limlst, 
+        &limit, &maxp1, &result, &abserr, &neval, &ier, rslst, erlst, ierlst, &lst, alist, 
+        blist, rlist, elist, iord, nnlog, chebmo);
   return assert_quad(value, 3.0/(pow(4,2) + pow(3,2)), 1.49e-8);
 }
 
@@ -232,7 +240,9 @@ int test_cosine_weighted_infinite(){
   int iord[limit];
   int nnlog[limit];
   double chebmo[maxp1][25]; //This 2D array could have problems w/ fortran and c?? 
-  double value = dqawfe2(tcwiFunc, nargs, args, &a, &omega, &integr, &epsabs, &limlst, &limit, &maxp1, &result, &abserr, &neval, &ier, rslst, erlst, ierlst, &lst, alist, blist, rlist, elist, iord, nnlog, chebmo);
+  double value = dqawfe2(tcwiFunc, nargs, args, &a, &omega, &integr, &epsabs, &limlst,
+      &limit, &maxp1, &result, &abserr, &neval, &ier, rslst, erlst, ierlst, &lst, alist, 
+      blist, rlist, elist, iord, nnlog, chebmo);
   return assert_quad(value, 2.5/(pow(2.5,2.3) + pow(3,2)), 1.49e-8);
   */
 }
@@ -258,7 +268,9 @@ int test_algebraic_log_weight(){
   double alist[limit], blist[limit], rlist[limit], elist[limit];
   int iord[limit];
   int last;
-  double value = dqawse2(talwFunc, nargs, args, &a, &b, &alfa, &beta, &integr, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
+  double value = dqawse2(talwFunc, nargs, args, &a, &b, &alfa, &beta, &integr, &epsabs, 
+        &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist, elist, 
+        iord, &last);
   return assert_quad(value,  PI/sqrt(pow((1+pow(2,(-1.5))),2) - 1), 1.49e-8);
 } 
 
@@ -281,10 +293,12 @@ int test_cauchypv_weight(){
   double alist[limit], blist[limit], rlist[limit], elist[limit];
   int iord[limit];
   int last;
-  double value = dqawce2(tcwFunc, nargs, args, &a, &b, &c, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
+  double value = dqawce2(tcwFunc, nargs, args, &a, &b, &c, &epsabs, &epsrel, &limit, 
+        &result, &abserr, &neval, &ier, alist, blist, rlist, elist, iord, &last);
   a = 0.4;
-  double tabledValue = (pow(2.0,(-0.4))*log(1.5)-pow(2.0,(-1.4))*log((pow(4.0,(-a))+16)/(pow(4.0,(-a))+1))
-			- atan(pow(2.0,(a+2))) - atan(pow(2.0,a)))/(pow(4.0,(-a)) + 1);
+  double tabledValue = (pow(2.0,(-0.4))*log(1.5)-pow(2.0,(-1.4))*
+        log((pow(4.0,(-a))+16)/(pow(4.0,(-a))+1)) - atan(pow(2.0,(a+2))) 
+        - atan(pow(2.0,a)))/(pow(4.0,(-a)) + 1);
   return assert_quad(value, tabledValue, 1.49e-8);
   
 }

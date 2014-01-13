@@ -41,7 +41,7 @@ double call(double* x){
   Input: Pointer to double x to evaluate function at
   Output: Function evaluated at x with initialized parameters
   We want to create a new array with [x0, concatenated with [x1, . . . , xn]]
-  */
+  */ 
   double evalArray[globalnargs+1];
   int i = 1;
   evalArray[0] = *x;
@@ -49,7 +49,7 @@ double call(double* x){
   for(i; i < globalnargs + 1 ; i++){
     evalArray[i] = globalargs[i-1]; //Add everything from globalargs to end of evalArray
   }
-
+  
   return  globalf(globalnargs, evalArray);
 }
 
